@@ -47,10 +47,10 @@
 int letras[28];
 int numeroDisplays=8;
 int displayEncendido=0;
-char nombre1[] = "ANA CAROLINA CARRILLO LOMBANA";
-char nombre2[] = "MARIA JULIANA NIETO MORENO";
-char nombre3[] = "LAURA ALEJANDRA PARADA GAMBOA";
-char elegir_NOMBRE[100]; //-> aqui asigno el nombre que va
+char nombre1[] = "ANA CAROLINA CARRILLO LOMBANA ";
+char nombre2[] = "MARIA JULIANA NIETO MORENO    ";
+char nombre3[] = "LAURA ALEJANDRA PARADA GAMBOA ";
+char elegir_NOMBRE[30]; //-> aqui asigno el nombre que va
 int longitud=0;
 int token[7];
 /* USER CODE END PV */
@@ -106,7 +106,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   definirLetras();
   displayEncendido = pow(2, numeroDisplays);
-  longitud = strlen(nombre1);
+  longitud = strlen(elegir);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -117,42 +117,96 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  if(aux<numRepe){
-	     aux++;
-	  }else{
-		  aux=0;
-		  if(token<longitud){
-			  token++;
-		  }else{
-			  token=0;
-		  }
-
-	  }
-
 	  switch(displayActual){
 	  	  case 1:
 	  		GPIOA->ODR=getLetra(elegir[token+0]);
 	  	  break;
 	  	  case 2:
-	  		GPIOA->ODR=getLetra(nombre1[token+1]);
+	  		GPIOA->ODR=getLetra(elegir[token+1]);
 	  	  break;
 	  	  case 3:
-	  		GPIOA->ODR=getLetra(nombre1[token+2]);
+	  		GPIOA->ODR=getLetra(elegir[token+2]);
 	  	  break;
 	  	  case 4:
-	  		GPIOA->ODR=getLetra(nombre1[token+3]);
+	  		GPIOA->ODR=getLetra(elegir[token+3]);
 	  	  break;
 	  	  case 5:
-	  		GPIOA->ODR=getLetra(nombre1[token+4]);
+	  		GPIOA->ODR=getLetra(elegir[token+4]);
 	  	  break;
 	  	  case 6:
-	  		GPIOA->ODR=getLetra(nombre1[token+5]);
+	  		GPIOA->ODR=getLetra(elegir[token+5]);
 	  	  break;
 	  	  case 7:
-	  		GPIOA->ODR=getLetra(nombre1[token+6]);
+	  		GPIOA->ODR=getLetra(elegir[token+6]);
+	  	  break;
+	  	  case 8:
+	  		GPIOA->ODR=getLetra(elegir[token+7]);
+	  	  break;
+	  	  case 9:
+	  		GPIOA->ODR=getLetra(elegir[token+8]);
+	  	  break;
+	  	  case 10:
+	  		GPIOA->ODR=getLetra(elegir[token+9]);
+	  	  break;
+	  	  case 11:
+	  		GPIOA->ODR=getLetra(elegir[token+10]);
+	  	  break;
+	  	  case 12:
+	  		GPIOA->ODR=getLetra(elegir[token+11]);
+	  	  break;
+	  	  case 13:
+	  		GPIOA->ODR=getLetra(elegir[token+12]);
+	  	  break;
+	  	  case 14:
+	  		GPIOA->ODR=getLetra(elegir[token+13]);
+	  	  break;
+	  	  case 15:
+	  		GPIOA->ODR=getLetra(elegir[token+14]);
+	  	  break;
+	  	  case 16:
+	  		GPIOA->ODR=getLetra(elegir[token+15]);
+	  	  break;
+	  	  case 17:
+	  		GPIOA->ODR=getLetra(elegir[token+16]);
+	  	  break;
+	  	  case 18:
+	  		GPIOA->ODR=getLetra(elegir[token+17]);
+	  	  break;
+	  	  case 19:
+	  		GPIOA->ODR=getLetra(elegir[token+18]);
+	  	  break;
+	  	  case 20:
+	  		GPIOA->ODR=getLetra(elegir[token+19]);
+	  	  break;
+	  	  case 21:
+	  		GPIOA->ODR=getLetra(elegir[token+20]);
+	  	  break;
+	  	  case 22:
+	  		GPIOA->ODR=getLetra(elegir[token+21]);
+	  	  break;
+	  	  case 23:
+	  		GPIOA->ODR=getLetra(elegir[token+22]);
+	  	  break;
+	  	  case 24:
+	  		GPIOA->ODR=getLetra(elegir[token+23]);
+	  	  break;
+	  	  case 25:
+	  		GPIOA->ODR=getLetra(elegir[token+24]);
+	  	  break;
+	  	  case 26:
+	  		GPIOA->ODR=getLetra(elegir[token+25]);
+	  	  break;
+	  	  case 27:
+	  		GPIOA->ODR=getLetra(elegir[token+26]);
+	  	  break;
+	  	  case 28:
+	  		GPIOA->ODR=getLetra(elegir[token+27]);
+	  	  break;
+	  	  case 29:
+	  		GPIOA->ODR=getLetra(elegir[token+28]);
 	  	  break;
 	  	  case 0:
-	  		GPIOA->ODR=getLetra(nombre1[token+7]);
+	  		GPIOA->ODR=getLetra(elegir[token+29]);
 	  	  break;
 	  	  default:
 	  		GPIOA->ODR=0;
@@ -170,7 +224,17 @@ int main(void)
 	  if(displayActual==numeroDisplays) {displayActual=0;}
 
 
+	  if(aux < numRepe){
+	  	     aux++;
+	  	  }else{
+	  		  aux=0;
+	  		  if(token < longitud){
+	  			  token++;
+	  		  }else{
+	  			  token=0;
+	  		  }
 
+	  	  }
 
   }
   /* USER CODE END 3 */
@@ -268,32 +332,32 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void definirLetras(){
-	letras[0]=8759;
-	letras[1]=2703;
-	letras[2]=57;
-	letras[3]=2191;
-	letras[4]=8761;
-	letras[5]=8753;
-	letras[6]=573;
-	letras[7]=8758;
-	letras[8]=2185;
-	letras[9]=30;
-	letras[10]=9520;
-	letras[11]=56;
-	letras[12]=374;
-	letras[13]=1142;
-	letras[14]=63;
-	letras[15]=8755;
-	letras[16]=4159;
-	letras[17]=9779;
-	letras[18]=8749;
-	letras[19]=2177;
-	letras[20]=62;
-	letras[21]=4400;
-	letras[22]=5174;
-	letras[23]=5440;
-	letras[24]=2368;
-	letras[25]=4361;
+	letras[0]=62232;
+	letras[1]=64586;
+	letras[2]=52992;
+	letras[3]=64578;
+	letras[4]=53008;
+	letras[5]=49936;
+	letras[6]=57096;
+	letras[7]=13080;
+	letras[8]=52290;
+	letras[9]=15872;
+	letras[10]=817;
+	letras[11]=3840;
+	letras[12]=13216;
+	letras[13]=13185;
+	letras[14]=65280;
+	letras[15]=58136;
+	letras[16]=65281;
+	letras[17]=58137;
+	letras[18]=56600;
+	letras[19]=49218;
+	letras[20]=16128;
+	letras[21]=804;
+	letras[22]=13061;
+	letras[23]=165;
+	letras[24]=15640;
+	letras[25]=52260;
 
 
 }
