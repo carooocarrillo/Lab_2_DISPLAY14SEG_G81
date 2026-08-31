@@ -50,7 +50,7 @@ int displayEncendido=0;
 char nombre1[] = "ANA CAROLINA CARRILLO LOMBANA ";
 char nombre2[] = "MARIA JULIANA NIETO MORENO    ";
 char nombre3[] = "LAURA ALEJANDRA PARADA GAMBOA ";
-char elegir_NOMBRE[30]; //-> aqui asigno el nombre que va
+char elegir[30]; //-> aqui asigno el nombre que va
 int longitud=0;
 int token[7];
 /* USER CODE END PV */
@@ -92,6 +92,7 @@ int main(void)
   int numRepe=50;
   int aux=0;
   int token=0;
+  int contElegir=0;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -106,7 +107,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   definirLetras();
   displayEncendido = pow(2, numeroDisplays);
-  longitud = strlen(elegir);
+  longitud = 30;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -116,6 +117,29 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+	  if(aux < numRepe){
+	  	  	     aux++;
+	  	  	  }else{
+	  	  		  aux=0;
+	  	  		  if(token < longitud){
+	  	  			  token++;
+	  	  		  }else{
+	  	  			  token=0;
+	  	  		  }
+
+	  	  	  }
+
+	  if(contElegir==0){
+		  	  contElegir++;
+			  elegir="Nombre1";
+	  	  }else if(contElegir==1){
+	  		  contElegir++;
+	  		  elegir="Nombre2";
+	  	  }else{
+	  		  contElegir=0;
+	  		  elegir="Nombre3";
+	  	  }
 
 	  switch(displayActual){
 	  	  case 1:
@@ -223,18 +247,6 @@ int main(void)
 	  displayActual++;
 	  if(displayActual==numeroDisplays) {displayActual=0;}
 
-
-	  if(aux < numRepe){
-	  	     aux++;
-	  	  }else{
-	  		  aux=0;
-	  		  if(token < longitud){
-	  			  token++;
-	  		  }else{
-	  			  token=0;
-	  		  }
-
-	  	  }
 
   }
   /* USER CODE END 3 */
