@@ -45,23 +45,27 @@
 
 /* USER CODE BEGIN PV */
 int letras[28];
-int numeroDisplays=8;
-int displayEncendido=0;
+int numeroDisplays = 6;
+int displayEncendido = 0;
 char nombre1[] = "ANA CAROLINA CARRILLO LOMBANA ";
 char nombre2[] = "MARIA JULIANA NIETO MORENO    ";
 char nombre3[] = "LAURA ALEJANDRA PARADA GAMBOA ";
-char elegir[30]; //-> aqui asigno el nombre que va
-int longitud=0;
-int token[7];
+
+char *nombreActual;
+
+int estudianteActual = 0;
+int longitud = 0;
+int token = 0;
+
+GPIO_PinState LastButtonState = GPIO_PIN_SET;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-void definirLetras(); //Define las letras en el vector
+void definirLetras(void); //Define las letras en el vector
 int getLetra(char letra);
-int secuenciarTransitores();
-void select_NOMBRE();//-> crear una función que asigne el valor a elegir
+int secuenciarTransitores(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -77,37 +81,29 @@ void select_NOMBRE();//-> crear una función que asigne el valor a elegir
   */
 int main(void)
 {
-
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  int displayActual=0;
-  int numRepe=50;
-  int aux=0;
-  int token=0;
-  int contElegir=0;
+    int displayActual = 0;
+    int numRepe = 50;
+    int aux = 0;
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+
   /* USER CODE BEGIN 2 */
   definirLetras();
   displayEncendido = pow(2, numeroDisplays);
-  longitud = 30;
+
+  nombreActual = nombre1;
+  longitud = strlen(nombreActual);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -116,140 +112,70 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+	    /* USER CODE BEGIN 3 */
+		  GPIO_PinState buttonState = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
 
-	  if(aux < numRepe){
-	  	  	     aux++;
-	  	  	  }else{
-	  	  		  aux=0;
-	  	  		  if(token < longitud){
-	  	  			  token++;
-	  	  		  }else{
-	  	  			  token=0;
-	  	  		  }
+		  if(buttonState == GPIO_PIN_RESET && LastButtonState == GPIO_PIN_SET){
+		  	  HAL_Delay(20);
+		  	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET){
+		  		  estudianteActual++;
 
-	  	  	  }
+		  		  if(estudianteActual > 2){
+		  			  estudianteActual = 0;
+		  		  }
 
-	  if(contElegir==0){
-		  	  contElegir++;
-			  elegir="Nombre1";
-	  	  }else if(contElegir==1){
-	  		  contElegir++;
-	  		  elegir="Nombre2";
+		  		  if(estudianteActual == 0){
+		  			  nombreActual = nombre1;
+		  		  } else if(estudianteActual == 1){
+		  			  nombreActual = nombre2;
+		  		  } else if(estudianteActual == 2){
+		  			  nombreActual = nombre3;
+		  		  }
+
+		  		  token = 0;
+		  		  aux = 0;
+		  		  longitud = strlen(nombreActual);
+		  	  }
+		  }
+		  LastButtonState = buttonState;
+
+		  if(aux < numRepe){
+			  aux++;
 	  	  }else{
-	  		  contElegir=0;
-	  		  elegir="Nombre3";
-	  	  }
+		  		  aux=0;
+		  		  if(token < longitud){
+		  			  token++;
+		  		  } else{
+		  			  token = 0;
+		  		  }
+		  	}
 
-	  switch(displayActual){
-	  	  case 1:
-	  		GPIOA->ODR=getLetra(elegir[token+0]);
-	  	  break;
-	  	  case 2:
-	  		GPIOA->ODR=getLetra(elegir[token+1]);
-	  	  break;
-	  	  case 3:
-	  		GPIOA->ODR=getLetra(elegir[token+2]);
-	  	  break;
-	  	  case 4:
-	  		GPIOA->ODR=getLetra(elegir[token+3]);
-	  	  break;
-	  	  case 5:
-	  		GPIOA->ODR=getLetra(elegir[token+4]);
-	  	  break;
-	  	  case 6:
-	  		GPIOA->ODR=getLetra(elegir[token+5]);
-	  	  break;
-	  	  case 7:
-	  		GPIOA->ODR=getLetra(elegir[token+6]);
-	  	  break;
-	  	  case 8:
-	  		GPIOA->ODR=getLetra(elegir[token+7]);
-	  	  break;
-	  	  case 9:
-	  		GPIOA->ODR=getLetra(elegir[token+8]);
-	  	  break;
-	  	  case 10:
-	  		GPIOA->ODR=getLetra(elegir[token+9]);
-	  	  break;
-	  	  case 11:
-	  		GPIOA->ODR=getLetra(elegir[token+10]);
-	  	  break;
-	  	  case 12:
-	  		GPIOA->ODR=getLetra(elegir[token+11]);
-	  	  break;
-	  	  case 13:
-	  		GPIOA->ODR=getLetra(elegir[token+12]);
-	  	  break;
-	  	  case 14:
-	  		GPIOA->ODR=getLetra(elegir[token+13]);
-	  	  break;
-	  	  case 15:
-	  		GPIOA->ODR=getLetra(elegir[token+14]);
-	  	  break;
-	  	  case 16:
-	  		GPIOA->ODR=getLetra(elegir[token+15]);
-	  	  break;
-	  	  case 17:
-	  		GPIOA->ODR=getLetra(elegir[token+16]);
-	  	  break;
-	  	  case 18:
-	  		GPIOA->ODR=getLetra(elegir[token+17]);
-	  	  break;
-	  	  case 19:
-	  		GPIOA->ODR=getLetra(elegir[token+18]);
-	  	  break;
-	  	  case 20:
-	  		GPIOA->ODR=getLetra(elegir[token+19]);
-	  	  break;
-	  	  case 21:
-	  		GPIOA->ODR=getLetra(elegir[token+20]);
-	  	  break;
-	  	  case 22:
-	  		GPIOA->ODR=getLetra(elegir[token+21]);
-	  	  break;
-	  	  case 23:
-	  		GPIOA->ODR=getLetra(elegir[token+22]);
-	  	  break;
-	  	  case 24:
-	  		GPIOA->ODR=getLetra(elegir[token+23]);
-	  	  break;
-	  	  case 25:
-	  		GPIOA->ODR=getLetra(elegir[token+24]);
-	  	  break;
-	  	  case 26:
-	  		GPIOA->ODR=getLetra(elegir[token+25]);
-	  	  break;
-	  	  case 27:
-	  		GPIOA->ODR=getLetra(elegir[token+26]);
-	  	  break;
-	  	  case 28:
-	  		GPIOA->ODR=getLetra(elegir[token+27]);
-	  	  break;
-	  	  case 29:
-	  		GPIOA->ODR=getLetra(elegir[token+28]);
-	  	  break;
-	  	  case 0:
-	  		GPIOA->ODR=getLetra(elegir[token+29]);
-	  	  break;
-	  	  default:
-	  		GPIOA->ODR=0;
+		  switch (displayActual) {
+		        case 5: GPIOA->ODR = ~getLetra(nombreActual[(token + 0) % longitud]); break;
+		        case 4: GPIOA->ODR = ~getLetra(nombreActual[(token + 1) % longitud]); break;
+		        case 3: GPIOA->ODR = ~getLetra(nombreActual[(token + 2) % longitud]); break;
+		        case 2: GPIOA->ODR = ~getLetra(nombreActual[(token + 3) % longitud]); break;
+		        case 1: GPIOA->ODR = ~getLetra(nombreActual[(token + 4) % longitud]); break;
+		        case 0: GPIOA->ODR = ~getLetra(nombreActual[(token + 5) % longitud]); break;
+		        default: GPIOA->ODR = 0xFFFF;
+		      }
+
+		  HAL_Delay(1);
+
+		  GPIOB->ODR = 0x00;
+		  GPIOA->ODR = 0xFFFF;
+
+		  HAL_Delay(1);
+
+		  GPIOB->ODR = secuenciarTransitores() << 2;
+
+		  displayActual++;
+		  if(displayActual >= numeroDisplays){
+			  displayActual=0;
+		  }
+
 	  }
-
-
-	 // GPIOA->ODR=getLetra('A');
-	  HAL_Delay(1);
-	  GPIOB->ODR=0xFF;
-	  GPIOA->ODR=0;
-	  HAL_Delay(1);
-	  GPIOB->ODR=~secuenciarTransitores();
-
-	  displayActual++;
-	  if(displayActual==numeroDisplays) {displayActual=0;}
-
-
-  }
-  /* USER CODE END 3 */
+	  /* USER CODE END 3 */
 }
 
 /**
@@ -301,7 +227,7 @@ static void MX_GPIO_Init(void)
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
@@ -312,8 +238,14 @@ static void MX_GPIO_Init(void)
                           |GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
-                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
+                          |GPIO_PIN_7, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PA0 PA1 PA2 PA3
                            PA4 PA5 PA6 PA7
@@ -328,10 +260,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB0 PB1 PB2 PB3
-                           PB4 PB5 PB6 PB7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
-                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
+  /*Configure GPIO pins : PB3 PB4 PB5 PB6
+                           PB7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
+                          |GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -343,50 +275,46 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void definirLetras(){
-	letras[0]=62232;
-	letras[1]=64586;
-	letras[2]=52992;
-	letras[3]=64578;
-	letras[4]=53008;
-	letras[5]=49936;
-	letras[6]=57096;
-	letras[7]=13080;
-	letras[8]=52290;
-	letras[9]=15872;
-	letras[10]=817;
-	letras[11]=3840;
-	letras[12]=13216;
-	letras[13]=13185;
-	letras[14]=65280;
-	letras[15]=58136;
-	letras[16]=65281;
-	letras[17]=58137;
-	letras[18]=56600;
-	letras[19]=49218;
-	letras[20]=16128;
-	letras[21]=804;
-	letras[22]=13061;
-	letras[23]=165;
-	letras[24]=15640;
-	letras[25]=52260;
-
-
+void definirLetras(void) {
+	  letras[0] = 35023; // A
+	  letras[1] = 10815; // B
+	  letras[2] = 243;   // C
+	  letras[3] = 8767;  // D
+	  letras[4] = 35059; // E
+	  letras[5] = 35011; // F
+	  letras[6] = 2299;  // G
+	  letras[7] = 35020; // H
+	  letras[8] = 8755;  // I
+	  letras[9] = 124;    // J
+	  letras[10] = 38080;// K
+	  letras[11] = 240;  // L
+	  letras[12] = 1484; // M
+	  letras[13] = 4556; // N
+	  letras[14] = 255;  // O
+	  letras[15] = 35015;// P
+	  letras[16] = 16639;// Q
+	  letras[17] = 39111;// R
+	  letras[18] = 35003;// S
+	  letras[19] = 8707; // T
+	  letras[20] = 252;  // U
+	  letras[21] = 17600;// V
+	  letras[22] = 20684;// W
+	  letras[23] = 21760;// X
+	  letras[24] = 9472; // Y
+	  letras[25] = 17459;// Z
 }
 
 int getLetra(char letra){
-	int aux=0;
-	if(letra==' '){
-		return 0;
-	}else{
-		return letras[(int)(letra-65)];
-	}
-
+    if(letra >= 'A' && letra <= 'Z'){
+        return letras[(int)(letra - 'A')];
+    } else {
+        return 0; // Espacio o carácter inválido
+    }
 }
 
 int secuenciarTransitores(){
-	if(displayEncendido==1) displayEncendido=pow(2,numeroDisplays);
-	displayEncendido=displayEncendido>>1;
+	if(displayEncendido == 1) displayEncendido = pow(2, numeroDisplays);
+	displayEncendido =  displayEncendido >> 1;
 	return displayEncendido;
 }
 
