@@ -51,9 +51,9 @@ char nombre1[] = "ANA CAROLINA CARRILLO LOMBANA ";
 char nombre2[] = "MARIA JULIANA NIETO MORENO    ";
 char nombre3[] = "LAURA ALEJANDRA PARADA GAMBOA ";
 
-char *nombreActual;
+char *salidaNombre;
 
-int estudianteActual = 0;
+int estudiante = 0;
 int longitud = 0;
 int token = 0;
 
@@ -102,8 +102,8 @@ int main(void)
   definirLetras();
   displayEncendido = pow(2, numeroDisplays);
 
-  nombreActual = nombre1;
-  longitud = strlen(nombreActual);
+  salidaNombre = nombre1;
+  longitud = strlen(salidaNombre);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -117,47 +117,70 @@ int main(void)
 
 		  if(buttonState == GPIO_PIN_RESET && LastButtonState == GPIO_PIN_SET){
 		  	  HAL_Delay(20);
-		  	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET){
-		  		  estudianteActual++;
 
-		  		  if(estudianteActual > 2){
-		  			  estudianteActual = 0;
+		  	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET){
+		  		  estudiante++;
+
+		  		  if(estudiante > 2){
+		  			  estudiante = 0;
 		  		  }
 
-		  		  if(estudianteActual == 0){
-		  			  nombreActual = nombre1;
-		  		  } else if(estudianteActual == 1){
-		  			  nombreActual = nombre2;
-		  		  } else if(estudianteActual == 2){
-		  			  nombreActual = nombre3;
+		  		  if(estudiante == 0){
+		  			salidaNombre = nombre1;
+		  		  }
+
+		  		  else if(estudiante == 1){
+		  			salidaNombre = nombre2;
+		  		  }
+
+		  		  else if(estudiante == 2){
+		  			salidaNombre = nombre3;
 		  		  }
 
 		  		  token = 0;
 		  		  aux = 0;
-		  		  longitud = strlen(nombreActual);
+		  		  longitud = strlen(salidaNombre);
 		  	  }
 		  }
+
 		  LastButtonState = buttonState;
 
 		  if(aux < numRepe){
 			  aux++;
-	  	  }else{
-		  		  aux=0;
-		  		  if(token < longitud){
-		  			  token++;
-		  		  } else{
+	  	  }
+
+		  else{
+			  aux=0;
+			  if(token < longitud){
+				  token++;
+			  }
+
+			  else{
 		  			  token = 0;
 		  		  }
 		  	}
 
 		  switch (displayActual) {
-		        case 5: GPIOA->ODR = ~getLetra(nombreActual[(token + 0) % longitud]); break;
-		        case 4: GPIOA->ODR = ~getLetra(nombreActual[(token + 1) % longitud]); break;
-		        case 3: GPIOA->ODR = ~getLetra(nombreActual[(token + 2) % longitud]); break;
-		        case 2: GPIOA->ODR = ~getLetra(nombreActual[(token + 3) % longitud]); break;
-		        case 1: GPIOA->ODR = ~getLetra(nombreActual[(token + 4) % longitud]); break;
-		        case 0: GPIOA->ODR = ~getLetra(nombreActual[(token + 5) % longitud]); break;
-		        default: GPIOA->ODR = 0xFFFF;
+		        case 5:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 0) % longitud]);
+		        break;
+		        case 4:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 1) % longitud]);
+		        break;
+		        case 3:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 2) % longitud]);
+		        break;
+		        case 2:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 3) % longitud]);
+		        break;
+		        case 1:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 4) % longitud]);
+		        break;
+		        case 0:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 5) % longitud]);
+		        break;
+		        default:
+		        	GPIOA->ODR = 0xFFFF;
 		      }
 
 		  HAL_Delay(1);
@@ -276,32 +299,32 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void definirLetras(void) {
-	  letras[0] = 35023; // A
-	  letras[1] = 10815; // B
-	  letras[2] = 243;   // C
-	  letras[3] = 8767;  // D
-	  letras[4] = 35059; // E
-	  letras[5] = 35011; // F
-	  letras[6] = 2299;  // G
-	  letras[7] = 35020; // H
-	  letras[8] = 8755;  // I
-	  letras[9] = 124;    // J
-	  letras[10] = 38080;// K
-	  letras[11] = 240;  // L
-	  letras[12] = 1484; // M
-	  letras[13] = 4556; // N
-	  letras[14] = 255;  // O
-	  letras[15] = 35015;// P
-	  letras[16] = 16639;// Q
-	  letras[17] = 39111;// R
-	  letras[18] = 35003;// S
-	  letras[19] = 8707; // T
-	  letras[20] = 252;  // U
-	  letras[21] = 17600;// V
-	  letras[22] = 20684;// W
-	  letras[23] = 21760;// X
-	  letras[24] = 9472; // Y
-	  letras[25] = 17459;// Z
+	  letras[0]  = 35023;
+	  letras[1]  = 10815;
+	  letras[2]  = 243;
+	  letras[3]  = 8767;
+	  letras[4]  = 35059;
+	  letras[5]  = 35011;
+	  letras[6]  = 2299;
+	  letras[7]  = 35020;
+	  letras[8]  = 8755;
+	  letras[9]  = 124;
+	  letras[10] = 38080;
+	  letras[11] = 240;
+	  letras[12] = 1484;
+	  letras[13] = 4556;
+	  letras[14] = 255;
+	  letras[15] = 35015;
+	  letras[16] = 16639;
+	  letras[17] = 39111;
+	  letras[18] = 35003;
+	  letras[19] = 8707;
+	  letras[20] = 252;
+	  letras[21] = 17600;
+	  letras[22] = 20684;
+	  letras[23] = 21760;
+	  letras[24] = 9472;
+	  letras[25] = 17459;
 }
 
 int getLetra(char letra){

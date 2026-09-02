@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00015fdb  00000000  00000000  0000816c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00004d54  00000000  00000000  0001e147  2**0
+ 17 .debug_line   00004d51  00000000  00000000  0001e147  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0007d314  00000000  00000000  00022e9b  2**0
+ 18 .debug_str    0007d30e  00000000  00000000  00022e98  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  000a01af  2**0
+ 19 .comment      00000043  00000000  00000000  000a01a6  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000012a8  00000000  00000000  000a01f4  2**2
+ 20 .debug_frame  000012a8  00000000  00000000  000a01ec  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000066  00000000  00000000  000a149c  2**0
+ 21 .debug_line_str 00000066  00000000  00000000  000a1494  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -932,11 +932,11 @@ int main(void)
  8000ad2:	4a97      	ldr	r2, [pc, #604]	@ (8000d30 <main+0x2a8>)
  8000ad4:	6013      	str	r3, [r2, #0]
 
-  nombreActual = nombre1;
+  salidaNombre = nombre1;
  8000ad6:	4b97      	ldr	r3, [pc, #604]	@ (8000d34 <main+0x2ac>)
  8000ad8:	4a97      	ldr	r2, [pc, #604]	@ (8000d38 <main+0x2b0>)
  8000ada:	601a      	str	r2, [r3, #0]
-  longitud = strlen(nombreActual);
+  longitud = strlen(salidaNombre);
  8000adc:	4b95      	ldr	r3, [pc, #596]	@ (8000d34 <main+0x2ac>)
  8000ade:	681b      	ldr	r3, [r3, #0]
  8000ae0:	4618      	mov	r0, r3
@@ -968,6 +968,7 @@ int main(void)
 		  	  HAL_Delay(20);
  8000b0a:	2014      	movs	r0, #20
  8000b0c:	f000 fb76 	bl	80011fc <HAL_Delay>
+
 		  	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET){
  8000b10:	f44f 5100 	mov.w	r1, #8192	@ 0x2000
  8000b14:	488a      	ldr	r0, [pc, #552]	@ (8000d40 <main+0x2b8>)
@@ -975,50 +976,54 @@ int main(void)
  8000b1a:	4603      	mov	r3, r0
  8000b1c:	2b00      	cmp	r3, #0
  8000b1e:	d130      	bne.n	8000b82 <main+0xfa>
-		  		  estudianteActual++;
+		  		  estudiante++;
  8000b20:	4b89      	ldr	r3, [pc, #548]	@ (8000d48 <main+0x2c0>)
  8000b22:	681b      	ldr	r3, [r3, #0]
  8000b24:	3301      	adds	r3, #1
  8000b26:	4a88      	ldr	r2, [pc, #544]	@ (8000d48 <main+0x2c0>)
  8000b28:	6013      	str	r3, [r2, #0]
 
-		  		  if(estudianteActual > 2){
+		  		  if(estudiante > 2){
  8000b2a:	4b87      	ldr	r3, [pc, #540]	@ (8000d48 <main+0x2c0>)
  8000b2c:	681b      	ldr	r3, [r3, #0]
  8000b2e:	2b02      	cmp	r3, #2
  8000b30:	dd02      	ble.n	8000b38 <main+0xb0>
-		  			  estudianteActual = 0;
+		  			  estudiante = 0;
  8000b32:	4b85      	ldr	r3, [pc, #532]	@ (8000d48 <main+0x2c0>)
  8000b34:	2200      	movs	r2, #0
  8000b36:	601a      	str	r2, [r3, #0]
 		  		  }
 
-		  		  if(estudianteActual == 0){
+		  		  if(estudiante == 0){
  8000b38:	4b83      	ldr	r3, [pc, #524]	@ (8000d48 <main+0x2c0>)
  8000b3a:	681b      	ldr	r3, [r3, #0]
  8000b3c:	2b00      	cmp	r3, #0
  8000b3e:	d103      	bne.n	8000b48 <main+0xc0>
-		  			  nombreActual = nombre1;
+		  			salidaNombre = nombre1;
  8000b40:	4b7c      	ldr	r3, [pc, #496]	@ (8000d34 <main+0x2ac>)
  8000b42:	4a7d      	ldr	r2, [pc, #500]	@ (8000d38 <main+0x2b0>)
  8000b44:	601a      	str	r2, [r3, #0]
  8000b46:	e00e      	b.n	8000b66 <main+0xde>
-		  		  } else if(estudianteActual == 1){
+		  		  }
+
+		  		  else if(estudiante == 1){
  8000b48:	4b7f      	ldr	r3, [pc, #508]	@ (8000d48 <main+0x2c0>)
  8000b4a:	681b      	ldr	r3, [r3, #0]
  8000b4c:	2b01      	cmp	r3, #1
  8000b4e:	d103      	bne.n	8000b58 <main+0xd0>
-		  			  nombreActual = nombre2;
+		  			salidaNombre = nombre2;
  8000b50:	4b78      	ldr	r3, [pc, #480]	@ (8000d34 <main+0x2ac>)
  8000b52:	4a7e      	ldr	r2, [pc, #504]	@ (8000d4c <main+0x2c4>)
  8000b54:	601a      	str	r2, [r3, #0]
  8000b56:	e006      	b.n	8000b66 <main+0xde>
-		  		  } else if(estudianteActual == 2){
+		  		  }
+
+		  		  else if(estudiante == 2){
  8000b58:	4b7b      	ldr	r3, [pc, #492]	@ (8000d48 <main+0x2c0>)
  8000b5a:	681b      	ldr	r3, [r3, #0]
  8000b5c:	2b02      	cmp	r3, #2
  8000b5e:	d102      	bne.n	8000b66 <main+0xde>
-		  			  nombreActual = nombre3;
+		  			salidaNombre = nombre3;
  8000b60:	4b74      	ldr	r3, [pc, #464]	@ (8000d34 <main+0x2ac>)
  8000b62:	4a7b      	ldr	r2, [pc, #492]	@ (8000d50 <main+0x2c8>)
  8000b64:	601a      	str	r2, [r3, #0]
@@ -1031,7 +1036,7 @@ int main(void)
 		  		  aux = 0;
  8000b6c:	2300      	movs	r3, #0
  8000b6e:	60bb      	str	r3, [r7, #8]
-		  		  longitud = strlen(nombreActual);
+		  		  longitud = strlen(salidaNombre);
  8000b70:	4b70      	ldr	r3, [pc, #448]	@ (8000d34 <main+0x2ac>)
  8000b72:	681b      	ldr	r3, [r3, #0]
  8000b74:	4618      	mov	r0, r3
@@ -1042,6 +1047,7 @@ int main(void)
  8000b80:	601a      	str	r2, [r3, #0]
 		  	  }
 		  }
+
 		  LastButtonState = buttonState;
  8000b82:	4a70      	ldr	r2, [pc, #448]	@ (8000d44 <main+0x2bc>)
  8000b84:	78fb      	ldrb	r3, [r7, #3]
@@ -1057,25 +1063,29 @@ int main(void)
  8000b92:	3301      	adds	r3, #1
  8000b94:	60bb      	str	r3, [r7, #8]
  8000b96:	e010      	b.n	8000bba <main+0x132>
-	  	  }else{
-		  		  aux=0;
+	  	  }
+
+		  else{
+			  aux=0;
  8000b98:	2300      	movs	r3, #0
  8000b9a:	60bb      	str	r3, [r7, #8]
-		  		  if(token < longitud){
+			  if(token < longitud){
  8000b9c:	4b6d      	ldr	r3, [pc, #436]	@ (8000d54 <main+0x2cc>)
  8000b9e:	681a      	ldr	r2, [r3, #0]
  8000ba0:	4b66      	ldr	r3, [pc, #408]	@ (8000d3c <main+0x2b4>)
  8000ba2:	681b      	ldr	r3, [r3, #0]
  8000ba4:	429a      	cmp	r2, r3
  8000ba6:	da05      	bge.n	8000bb4 <main+0x12c>
-		  			  token++;
+				  token++;
  8000ba8:	4b6a      	ldr	r3, [pc, #424]	@ (8000d54 <main+0x2cc>)
  8000baa:	681b      	ldr	r3, [r3, #0]
  8000bac:	3301      	adds	r3, #1
  8000bae:	4a69      	ldr	r2, [pc, #420]	@ (8000d54 <main+0x2cc>)
  8000bb0:	6013      	str	r3, [r2, #0]
  8000bb2:	e002      	b.n	8000bba <main+0x132>
-		  		  } else{
+			  }
+
+			  else{
 		  			  token = 0;
  8000bb4:	4b67      	ldr	r3, [pc, #412]	@ (8000d54 <main+0x2cc>)
  8000bb6:	2200      	movs	r2, #0
@@ -1095,7 +1105,8 @@ int main(void)
  8000bd4:	08000c37 	.word	0x08000c37
  8000bd8:	08000c0b 	.word	0x08000c0b
  8000bdc:	08000be1 	.word	0x08000be1
-		        case 5: GPIOA->ODR = ~getLetra(nombreActual[(token + 0) % longitud]); break;
+		        case 5:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 0) % longitud]);
  8000be0:	4b54      	ldr	r3, [pc, #336]	@ (8000d34 <main+0x2ac>)
  8000be2:	6819      	ldr	r1, [r3, #0]
  8000be4:	4b5b      	ldr	r3, [pc, #364]	@ (8000d54 <main+0x2cc>)
@@ -1113,8 +1124,10 @@ int main(void)
  8000c02:	43da      	mvns	r2, r3
  8000c04:	4b54      	ldr	r3, [pc, #336]	@ (8000d58 <main+0x2d0>)
  8000c06:	60da      	str	r2, [r3, #12]
+		        break;
  8000c08:	e071      	b.n	8000cee <main+0x266>
-		        case 4: GPIOA->ODR = ~getLetra(nombreActual[(token + 1) % longitud]); break;
+		        case 4:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 1) % longitud]);
  8000c0a:	4b4a      	ldr	r3, [pc, #296]	@ (8000d34 <main+0x2ac>)
  8000c0c:	6819      	ldr	r1, [r3, #0]
  8000c0e:	4b51      	ldr	r3, [pc, #324]	@ (8000d54 <main+0x2cc>)
@@ -1133,8 +1146,10 @@ int main(void)
  8000c2e:	43da      	mvns	r2, r3
  8000c30:	4b49      	ldr	r3, [pc, #292]	@ (8000d58 <main+0x2d0>)
  8000c32:	60da      	str	r2, [r3, #12]
+		        break;
  8000c34:	e05b      	b.n	8000cee <main+0x266>
-		        case 3: GPIOA->ODR = ~getLetra(nombreActual[(token + 2) % longitud]); break;
+		        case 3:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 2) % longitud]);
  8000c36:	4b3f      	ldr	r3, [pc, #252]	@ (8000d34 <main+0x2ac>)
  8000c38:	6819      	ldr	r1, [r3, #0]
  8000c3a:	4b46      	ldr	r3, [pc, #280]	@ (8000d54 <main+0x2cc>)
@@ -1153,8 +1168,10 @@ int main(void)
  8000c5a:	43da      	mvns	r2, r3
  8000c5c:	4b3e      	ldr	r3, [pc, #248]	@ (8000d58 <main+0x2d0>)
  8000c5e:	60da      	str	r2, [r3, #12]
+		        break;
  8000c60:	e045      	b.n	8000cee <main+0x266>
-		        case 2: GPIOA->ODR = ~getLetra(nombreActual[(token + 3) % longitud]); break;
+		        case 2:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 3) % longitud]);
  8000c62:	4b34      	ldr	r3, [pc, #208]	@ (8000d34 <main+0x2ac>)
  8000c64:	6819      	ldr	r1, [r3, #0]
  8000c66:	4b3b      	ldr	r3, [pc, #236]	@ (8000d54 <main+0x2cc>)
@@ -1173,8 +1190,10 @@ int main(void)
  8000c86:	43da      	mvns	r2, r3
  8000c88:	4b33      	ldr	r3, [pc, #204]	@ (8000d58 <main+0x2d0>)
  8000c8a:	60da      	str	r2, [r3, #12]
+		        break;
  8000c8c:	e02f      	b.n	8000cee <main+0x266>
-		        case 1: GPIOA->ODR = ~getLetra(nombreActual[(token + 4) % longitud]); break;
+		        case 1:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 4) % longitud]);
  8000c8e:	4b29      	ldr	r3, [pc, #164]	@ (8000d34 <main+0x2ac>)
  8000c90:	6819      	ldr	r1, [r3, #0]
  8000c92:	4b30      	ldr	r3, [pc, #192]	@ (8000d54 <main+0x2cc>)
@@ -1193,8 +1212,10 @@ int main(void)
  8000cb2:	43da      	mvns	r2, r3
  8000cb4:	4b28      	ldr	r3, [pc, #160]	@ (8000d58 <main+0x2d0>)
  8000cb6:	60da      	str	r2, [r3, #12]
+		        break;
  8000cb8:	e019      	b.n	8000cee <main+0x266>
-		        case 0: GPIOA->ODR = ~getLetra(nombreActual[(token + 5) % longitud]); break;
+		        case 0:
+		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 5) % longitud]);
  8000cba:	4b1e      	ldr	r3, [pc, #120]	@ (8000d34 <main+0x2ac>)
  8000cbc:	6819      	ldr	r1, [r3, #0]
  8000cbe:	4b25      	ldr	r3, [pc, #148]	@ (8000d54 <main+0x2cc>)
@@ -1213,8 +1234,10 @@ int main(void)
  8000cde:	43da      	mvns	r2, r3
  8000ce0:	4b1d      	ldr	r3, [pc, #116]	@ (8000d58 <main+0x2d0>)
  8000ce2:	60da      	str	r2, [r3, #12]
+		        break;
  8000ce4:	e003      	b.n	8000cee <main+0x266>
-		        default: GPIOA->ODR = 0xFFFF;
+		        default:
+		        	GPIOA->ODR = 0xFFFF;
  8000ce6:	4b1c      	ldr	r3, [pc, #112]	@ (8000d58 <main+0x2d0>)
  8000ce8:	f64f 72ff 	movw	r2, #65535	@ 0xffff
  8000cec:	60da      	str	r2, [r3, #12]
@@ -1519,107 +1542,107 @@ static void MX_GPIO_Init(void)
 void definirLetras(void) {
  8000eb8:	b480      	push	{r7}
  8000eba:	af00      	add	r7, sp, #0
-	  letras[0] = 35023; // A
+	  letras[0]  = 35023;
  8000ebc:	4b33      	ldr	r3, [pc, #204]	@ (8000f8c <definirLetras+0xd4>)
  8000ebe:	f648 02cf 	movw	r2, #35023	@ 0x88cf
  8000ec2:	601a      	str	r2, [r3, #0]
-	  letras[1] = 10815; // B
+	  letras[1]  = 10815;
  8000ec4:	4b31      	ldr	r3, [pc, #196]	@ (8000f8c <definirLetras+0xd4>)
  8000ec6:	f642 223f 	movw	r2, #10815	@ 0x2a3f
  8000eca:	605a      	str	r2, [r3, #4]
-	  letras[2] = 243;   // C
+	  letras[2]  = 243;
  8000ecc:	4b2f      	ldr	r3, [pc, #188]	@ (8000f8c <definirLetras+0xd4>)
  8000ece:	22f3      	movs	r2, #243	@ 0xf3
  8000ed0:	609a      	str	r2, [r3, #8]
-	  letras[3] = 8767;  // D
+	  letras[3]  = 8767;
  8000ed2:	4b2e      	ldr	r3, [pc, #184]	@ (8000f8c <definirLetras+0xd4>)
  8000ed4:	f242 223f 	movw	r2, #8767	@ 0x223f
  8000ed8:	60da      	str	r2, [r3, #12]
-	  letras[4] = 35059; // E
+	  letras[4]  = 35059;
  8000eda:	4b2c      	ldr	r3, [pc, #176]	@ (8000f8c <definirLetras+0xd4>)
  8000edc:	f648 02f3 	movw	r2, #35059	@ 0x88f3
  8000ee0:	611a      	str	r2, [r3, #16]
-	  letras[5] = 35011; // F
+	  letras[5]  = 35011;
  8000ee2:	4b2a      	ldr	r3, [pc, #168]	@ (8000f8c <definirLetras+0xd4>)
  8000ee4:	f648 02c3 	movw	r2, #35011	@ 0x88c3
  8000ee8:	615a      	str	r2, [r3, #20]
-	  letras[6] = 2299;  // G
+	  letras[6]  = 2299;
  8000eea:	4b28      	ldr	r3, [pc, #160]	@ (8000f8c <definirLetras+0xd4>)
  8000eec:	f640 02fb 	movw	r2, #2299	@ 0x8fb
  8000ef0:	619a      	str	r2, [r3, #24]
-	  letras[7] = 35020; // H
+	  letras[7]  = 35020;
  8000ef2:	4b26      	ldr	r3, [pc, #152]	@ (8000f8c <definirLetras+0xd4>)
  8000ef4:	f648 02cc 	movw	r2, #35020	@ 0x88cc
  8000ef8:	61da      	str	r2, [r3, #28]
-	  letras[8] = 8755;  // I
+	  letras[8]  = 8755;
  8000efa:	4b24      	ldr	r3, [pc, #144]	@ (8000f8c <definirLetras+0xd4>)
  8000efc:	f242 2233 	movw	r2, #8755	@ 0x2233
  8000f00:	621a      	str	r2, [r3, #32]
-	  letras[9] = 124;    // J
+	  letras[9]  = 124;
  8000f02:	4b22      	ldr	r3, [pc, #136]	@ (8000f8c <definirLetras+0xd4>)
  8000f04:	227c      	movs	r2, #124	@ 0x7c
  8000f06:	625a      	str	r2, [r3, #36]	@ 0x24
-	  letras[10] = 38080;// K
+	  letras[10] = 38080;
  8000f08:	4b20      	ldr	r3, [pc, #128]	@ (8000f8c <definirLetras+0xd4>)
  8000f0a:	f249 42c0 	movw	r2, #38080	@ 0x94c0
  8000f0e:	629a      	str	r2, [r3, #40]	@ 0x28
-	  letras[11] = 240;  // L
+	  letras[11] = 240;
  8000f10:	4b1e      	ldr	r3, [pc, #120]	@ (8000f8c <definirLetras+0xd4>)
  8000f12:	22f0      	movs	r2, #240	@ 0xf0
  8000f14:	62da      	str	r2, [r3, #44]	@ 0x2c
-	  letras[12] = 1484; // M
+	  letras[12] = 1484;
  8000f16:	4b1d      	ldr	r3, [pc, #116]	@ (8000f8c <definirLetras+0xd4>)
  8000f18:	f240 52cc 	movw	r2, #1484	@ 0x5cc
  8000f1c:	631a      	str	r2, [r3, #48]	@ 0x30
-	  letras[13] = 4556; // N
+	  letras[13] = 4556;
  8000f1e:	4b1b      	ldr	r3, [pc, #108]	@ (8000f8c <definirLetras+0xd4>)
  8000f20:	f241 12cc 	movw	r2, #4556	@ 0x11cc
  8000f24:	635a      	str	r2, [r3, #52]	@ 0x34
-	  letras[14] = 255;  // O
+	  letras[14] = 255;
  8000f26:	4b19      	ldr	r3, [pc, #100]	@ (8000f8c <definirLetras+0xd4>)
  8000f28:	22ff      	movs	r2, #255	@ 0xff
  8000f2a:	639a      	str	r2, [r3, #56]	@ 0x38
-	  letras[15] = 35015;// P
+	  letras[15] = 35015;
  8000f2c:	4b17      	ldr	r3, [pc, #92]	@ (8000f8c <definirLetras+0xd4>)
  8000f2e:	f648 02c7 	movw	r2, #35015	@ 0x88c7
  8000f32:	63da      	str	r2, [r3, #60]	@ 0x3c
-	  letras[16] = 16639;// Q
+	  letras[16] = 16639;
  8000f34:	4b15      	ldr	r3, [pc, #84]	@ (8000f8c <definirLetras+0xd4>)
  8000f36:	f244 02ff 	movw	r2, #16639	@ 0x40ff
  8000f3a:	641a      	str	r2, [r3, #64]	@ 0x40
-	  letras[17] = 39111;// R
+	  letras[17] = 39111;
  8000f3c:	4b13      	ldr	r3, [pc, #76]	@ (8000f8c <definirLetras+0xd4>)
  8000f3e:	f649 02c7 	movw	r2, #39111	@ 0x98c7
  8000f42:	645a      	str	r2, [r3, #68]	@ 0x44
-	  letras[18] = 35003;// S
+	  letras[18] = 35003;
  8000f44:	4b11      	ldr	r3, [pc, #68]	@ (8000f8c <definirLetras+0xd4>)
  8000f46:	f648 02bb 	movw	r2, #35003	@ 0x88bb
  8000f4a:	649a      	str	r2, [r3, #72]	@ 0x48
-	  letras[19] = 8707; // T
+	  letras[19] = 8707;
  8000f4c:	4b0f      	ldr	r3, [pc, #60]	@ (8000f8c <definirLetras+0xd4>)
  8000f4e:	f242 2203 	movw	r2, #8707	@ 0x2203
  8000f52:	64da      	str	r2, [r3, #76]	@ 0x4c
-	  letras[20] = 252;  // U
+	  letras[20] = 252;
  8000f54:	4b0d      	ldr	r3, [pc, #52]	@ (8000f8c <definirLetras+0xd4>)
  8000f56:	22fc      	movs	r2, #252	@ 0xfc
  8000f58:	651a      	str	r2, [r3, #80]	@ 0x50
-	  letras[21] = 17600;// V
+	  letras[21] = 17600;
  8000f5a:	4b0c      	ldr	r3, [pc, #48]	@ (8000f8c <definirLetras+0xd4>)
  8000f5c:	f244 42c0 	movw	r2, #17600	@ 0x44c0
  8000f60:	655a      	str	r2, [r3, #84]	@ 0x54
-	  letras[22] = 20684;// W
+	  letras[22] = 20684;
  8000f62:	4b0a      	ldr	r3, [pc, #40]	@ (8000f8c <definirLetras+0xd4>)
  8000f64:	f245 02cc 	movw	r2, #20684	@ 0x50cc
  8000f68:	659a      	str	r2, [r3, #88]	@ 0x58
-	  letras[23] = 21760;// X
+	  letras[23] = 21760;
  8000f6a:	4b08      	ldr	r3, [pc, #32]	@ (8000f8c <definirLetras+0xd4>)
  8000f6c:	f44f 42aa 	mov.w	r2, #21760	@ 0x5500
  8000f70:	65da      	str	r2, [r3, #92]	@ 0x5c
-	  letras[24] = 9472; // Y
+	  letras[24] = 9472;
  8000f72:	4b06      	ldr	r3, [pc, #24]	@ (8000f8c <definirLetras+0xd4>)
  8000f74:	f44f 5214 	mov.w	r2, #9472	@ 0x2500
  8000f78:	661a      	str	r2, [r3, #96]	@ 0x60
-	  letras[25] = 17459;// Z
+	  letras[25] = 17459;
  8000f7a:	4b04      	ldr	r3, [pc, #16]	@ (8000f8c <definirLetras+0xd4>)
  8000f7c:	f244 4233 	movw	r2, #17459	@ 0x4433
  8000f80:	665a      	str	r2, [r3, #100]	@ 0x64
