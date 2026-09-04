@@ -29,23 +29,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  12 .debug_info   00002adb  00000000  00000000  000040e9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00000eee  00000000  00000000  00006bc4  2**0
+ 13 .debug_abbrev 00000f01  00000000  00000000  00006bc4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 000003e8  00000000  00000000  00007ab8  2**3
+ 14 .debug_aranges 000003e8  00000000  00000000  00007ac8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 000002cc  00000000  00000000  00007ea0  2**0
+ 15 .debug_rnglists 000002cc  00000000  00000000  00007eb0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00015fdb  00000000  00000000  0000816c  2**0
+ 16 .debug_macro  00015fdb  00000000  00000000  0000817c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00004d51  00000000  00000000  0001e147  2**0
+ 17 .debug_line   00004d53  00000000  00000000  0001e157  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0007d30e  00000000  00000000  00022e98  2**0
+ 18 .debug_str    0007d30e  00000000  00000000  00022eaa  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  000a01a6  2**0
+ 19 .comment      00000043  00000000  00000000  000a01b8  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000012a8  00000000  00000000  000a01ec  2**2
+ 20 .debug_frame  000012a8  00000000  00000000  000a01fc  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000066  00000000  00000000  000a1494  2**0
+ 21 .debug_line_str 00000066  00000000  00000000  000a14a4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -884,6 +884,8 @@ int main(void)
  8000a88:	b580      	push	{r7, lr}
  8000a8a:	b084      	sub	sp, #16
  8000a8c:	af00      	add	r7, sp, #0
+  /* USER CODE END 1 */
+
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
@@ -905,11 +907,13 @@ int main(void)
   /* Configure the system clock */
   SystemClock_Config();
  8000a9e:	f000 f95f 	bl	8000d60 <SystemClock_Config>
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
  8000aa2:	f000 f999 	bl	8000dd8 <MX_GPIO_Init>
-
   /* USER CODE BEGIN 2 */
   definirLetras();
  8000aa6:	f000 fa07 	bl	8000eb8 <definirLetras>
@@ -949,7 +953,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-	    /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
 		  GPIO_PinState buttonState = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
  8000aee:	f44f 5100 	mov.w	r1, #8192	@ 0x2000
  8000af2:	4893      	ldr	r0, [pc, #588]	@ (8000d40 <main+0x2b8>)
@@ -1106,7 +1110,7 @@ int main(void)
  8000bd8:	08000c0b 	.word	0x08000c0b
  8000bdc:	08000be1 	.word	0x08000be1
 		        case 5:
-		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 0) % longitud]);
+		        	GPIOB->ODR = ~getLetra(salidaNombre[(token + 0) % longitud]);
  8000be0:	4b54      	ldr	r3, [pc, #336]	@ (8000d34 <main+0x2ac>)
  8000be2:	6819      	ldr	r1, [r3, #0]
  8000be4:	4b5b      	ldr	r3, [pc, #364]	@ (8000d54 <main+0x2cc>)
@@ -1127,7 +1131,7 @@ int main(void)
 		        break;
  8000c08:	e071      	b.n	8000cee <main+0x266>
 		        case 4:
-		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 1) % longitud]);
+		        	GPIOB->ODR = ~getLetra(salidaNombre[(token + 1) % longitud]);
  8000c0a:	4b4a      	ldr	r3, [pc, #296]	@ (8000d34 <main+0x2ac>)
  8000c0c:	6819      	ldr	r1, [r3, #0]
  8000c0e:	4b51      	ldr	r3, [pc, #324]	@ (8000d54 <main+0x2cc>)
@@ -1149,7 +1153,7 @@ int main(void)
 		        break;
  8000c34:	e05b      	b.n	8000cee <main+0x266>
 		        case 3:
-		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 2) % longitud]);
+		        	GPIOB->ODR = ~getLetra(salidaNombre[(token + 2) % longitud]);
  8000c36:	4b3f      	ldr	r3, [pc, #252]	@ (8000d34 <main+0x2ac>)
  8000c38:	6819      	ldr	r1, [r3, #0]
  8000c3a:	4b46      	ldr	r3, [pc, #280]	@ (8000d54 <main+0x2cc>)
@@ -1171,7 +1175,7 @@ int main(void)
 		        break;
  8000c60:	e045      	b.n	8000cee <main+0x266>
 		        case 2:
-		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 3) % longitud]);
+		        	GPIOB->ODR = ~getLetra(salidaNombre[(token + 3) % longitud]);
  8000c62:	4b34      	ldr	r3, [pc, #208]	@ (8000d34 <main+0x2ac>)
  8000c64:	6819      	ldr	r1, [r3, #0]
  8000c66:	4b3b      	ldr	r3, [pc, #236]	@ (8000d54 <main+0x2cc>)
@@ -1193,7 +1197,7 @@ int main(void)
 		        break;
  8000c8c:	e02f      	b.n	8000cee <main+0x266>
 		        case 1:
-		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 4) % longitud]);
+		        	GPIOB->ODR = ~getLetra(salidaNombre[(token + 4) % longitud]);
  8000c8e:	4b29      	ldr	r3, [pc, #164]	@ (8000d34 <main+0x2ac>)
  8000c90:	6819      	ldr	r1, [r3, #0]
  8000c92:	4b30      	ldr	r3, [pc, #192]	@ (8000d54 <main+0x2cc>)
@@ -1215,7 +1219,7 @@ int main(void)
 		        break;
  8000cb8:	e019      	b.n	8000cee <main+0x266>
 		        case 0:
-		        	GPIOA->ODR = ~getLetra(salidaNombre[(token + 5) % longitud]);
+		        	GPIOB->ODR = ~getLetra(salidaNombre[(token + 5) % longitud]);
  8000cba:	4b1e      	ldr	r3, [pc, #120]	@ (8000d34 <main+0x2ac>)
  8000cbc:	6819      	ldr	r1, [r3, #0]
  8000cbe:	4b25      	ldr	r3, [pc, #148]	@ (8000d54 <main+0x2cc>)
@@ -1237,7 +1241,7 @@ int main(void)
 		        break;
  8000ce4:	e003      	b.n	8000cee <main+0x266>
 		        default:
-		        	GPIOA->ODR = 0xFFFF;
+		        	GPIOB->ODR = 0xFFFF;
  8000ce6:	4b1c      	ldr	r3, [pc, #112]	@ (8000d58 <main+0x2d0>)
  8000ce8:	f64f 72ff 	movw	r2, #65535	@ 0xffff
  8000cec:	60da      	str	r2, [r3, #12]
@@ -1247,11 +1251,11 @@ int main(void)
  8000cee:	2001      	movs	r0, #1
  8000cf0:	f000 fa84 	bl	80011fc <HAL_Delay>
 
-		  GPIOB->ODR = 0x00;
+		  GPIOA->ODR = 0x00;
  8000cf4:	4b19      	ldr	r3, [pc, #100]	@ (8000d5c <main+0x2d4>)
  8000cf6:	2200      	movs	r2, #0
  8000cf8:	60da      	str	r2, [r3, #12]
-		  GPIOA->ODR = 0xFFFF;
+		  GPIOB->ODR = 0xFFFF;
  8000cfa:	4b17      	ldr	r3, [pc, #92]	@ (8000d58 <main+0x2d0>)
  8000cfc:	f64f 72ff 	movw	r2, #65535	@ 0xffff
  8000d00:	60da      	str	r2, [r3, #12]
@@ -1260,7 +1264,7 @@ int main(void)
  8000d02:	2001      	movs	r0, #1
  8000d04:	f000 fa7a 	bl	80011fc <HAL_Delay>
 
-		  GPIOB->ODR = secuenciarTransitores() << 2;
+		  GPIOA->ODR = secuenciarTransitores() << 2;
  8000d08:	f000 f95c 	bl	8000fc4 <secuenciarTransitores>
  8000d0c:	4603      	mov	r3, r0
  8000d0e:	4a13      	ldr	r2, [pc, #76]	@ (8000d5c <main+0x2d4>)
@@ -1293,8 +1297,8 @@ int main(void)
  8000d4c:	20000024 	.word	0x20000024
  8000d50:	20000044 	.word	0x20000044
  8000d54:	2000015c 	.word	0x2000015c
- 8000d58:	40010800 	.word	0x40010800
- 8000d5c:	40010c00 	.word	0x40010c00
+ 8000d58:	40010c00 	.word	0x40010c00
+ 8000d5c:	40010800 	.word	0x40010800
 
 08000d60 <SystemClock_Config>:
 /**
@@ -1443,22 +1447,22 @@ static void MX_GPIO_Init(void)
  8000e32:	687b      	ldr	r3, [r7, #4]
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
  8000e34:	2200      	movs	r2, #0
- 8000e36:	f64f 71ff 	movw	r1, #65535	@ 0xffff
- 8000e3a:	481c      	ldr	r0, [pc, #112]	@ (8000eac <MX_GPIO_Init+0xd4>)
- 8000e3c:	f000 fc79 	bl	8001732 <HAL_GPIO_WritePin>
-                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7
-                          |GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
-                          |GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15, GPIO_PIN_RESET);
+ 8000e36:	21f8      	movs	r1, #248	@ 0xf8
+ 8000e38:	481c      	ldr	r0, [pc, #112]	@ (8000eac <MX_GPIO_Init+0xd4>)
+ 8000e3a:	f000 fc7a 	bl	8001732 <HAL_GPIO_WritePin>
+                          |GPIO_PIN_7, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
- 8000e40:	2200      	movs	r2, #0
- 8000e42:	21f8      	movs	r1, #248	@ 0xf8
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_10
+ 8000e3e:	2200      	movs	r2, #0
+ 8000e40:	f64f 71ff 	movw	r1, #65535	@ 0xffff
  8000e44:	481a      	ldr	r0, [pc, #104]	@ (8000eb0 <MX_GPIO_Init+0xd8>)
  8000e46:	f000 fc74 	bl	8001732 <HAL_GPIO_WritePin>
-                          |GPIO_PIN_7, GPIO_PIN_RESET);
+                          |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
+                          |GPIO_PIN_15|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5
+                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PC13 */
   GPIO_InitStruct.Pin = GPIO_PIN_13;
@@ -1476,37 +1480,37 @@ static void MX_GPIO_Init(void)
  8000e5e:	4815      	ldr	r0, [pc, #84]	@ (8000eb4 <MX_GPIO_Init+0xdc>)
  8000e60:	f000 fad4 	bl	800140c <HAL_GPIO_Init>
 
-  /*Configure GPIO pins : PA0 PA1 PA2 PA3
-                           PA4 PA5 PA6 PA7
-                           PA8 PA9 PA10 PA11
-                           PA12 PA13 PA14 PA15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
- 8000e64:	f64f 73ff 	movw	r3, #65535	@ 0xffff
- 8000e68:	613b      	str	r3, [r7, #16]
-                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7
-                          |GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
-                          |GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
- 8000e6a:	2301      	movs	r3, #1
- 8000e6c:	617b      	str	r3, [r7, #20]
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8000e6e:	2300      	movs	r3, #0
- 8000e70:	61bb      	str	r3, [r7, #24]
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
- 8000e72:	2302      	movs	r3, #2
- 8000e74:	61fb      	str	r3, [r7, #28]
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
- 8000e76:	f107 0310 	add.w	r3, r7, #16
- 8000e7a:	4619      	mov	r1, r3
- 8000e7c:	480b      	ldr	r0, [pc, #44]	@ (8000eac <MX_GPIO_Init+0xd4>)
- 8000e7e:	f000 fac5 	bl	800140c <HAL_GPIO_Init>
-
-  /*Configure GPIO pins : PB3 PB4 PB5 PB6
-                           PB7 */
+  /*Configure GPIO pins : PA3 PA4 PA5 PA6
+                           PA7 */
   GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6
- 8000e82:	23f8      	movs	r3, #248	@ 0xf8
- 8000e84:	613b      	str	r3, [r7, #16]
+ 8000e64:	23f8      	movs	r3, #248	@ 0xf8
+ 8000e66:	613b      	str	r3, [r7, #16]
                           |GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 8000e68:	2301      	movs	r3, #1
+ 8000e6a:	617b      	str	r3, [r7, #20]
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 8000e6c:	2300      	movs	r3, #0
+ 8000e6e:	61bb      	str	r3, [r7, #24]
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 8000e70:	2302      	movs	r3, #2
+ 8000e72:	61fb      	str	r3, [r7, #28]
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 8000e74:	f107 0310 	add.w	r3, r7, #16
+ 8000e78:	4619      	mov	r1, r3
+ 8000e7a:	480c      	ldr	r0, [pc, #48]	@ (8000eac <MX_GPIO_Init+0xd4>)
+ 8000e7c:	f000 fac6 	bl	800140c <HAL_GPIO_Init>
+
+  /*Configure GPIO pins : PB0 PB1 PB2 PB10
+                           PB11 PB12 PB13 PB14
+                           PB15 PB3 PB4 PB5
+                           PB6 PB7 PB8 PB9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_10
+ 8000e80:	f64f 73ff 	movw	r3, #65535	@ 0xffff
+ 8000e84:	613b      	str	r3, [r7, #16]
+                          |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
+                          |GPIO_PIN_15|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5
+                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
  8000e86:	2301      	movs	r3, #1
  8000e88:	617b      	str	r3, [r7, #20]
